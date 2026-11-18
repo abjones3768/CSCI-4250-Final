@@ -34,11 +34,11 @@ scene.add(ground);
 
 /* ---------------- Scene Building ---------------- */
 const desk = DESK.buildDesk();
-desk.position.set(10, 0, -10)
+desk.position.set(-10, 0, -10)
 scene.add(desk)
 
 const pc = PC.buildPC();
-pc.position.set(9, 2.05, -10); // Position on table mat
+pc.position.set(-11, 2.05, -10); // Position on table mat
 pc.scale.set(0.5, 0.5, 0.5);
 scene.add(pc)
 
