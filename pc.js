@@ -1,3 +1,5 @@
+// Breck Mesh Object
+
 import * as THREE from 'three';
 import * as HELPERS from './helpers.js';
 import * as MATERIALS from "./materials.js";

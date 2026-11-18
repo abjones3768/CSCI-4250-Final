@@ -1,3 +1,5 @@
+// Breck Primitive Object
+
 import * as THREE from 'three';
 import * as HELPERS from './helpers.js';
 import * as MATERIALS from "./materials.js";
@@ -66,8 +68,7 @@ export function buildDesk()
   drawer.add(drawerHandle);
   var drawer2 = drawer.clone();
   drawer2.position.set(1, 1.6, 1);
-  //drawer.add(drawerHandle);
   desk.add(drawer, drawer2)
-
+  
   return desk;
 }

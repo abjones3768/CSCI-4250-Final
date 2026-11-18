@@ -7,3 +7,6 @@ export const matErial = new THREE.MeshStandardMaterial({ color: 0x008800, roughn
 export const black = new THREE.MeshStandardMaterial({ color: 0x000000 });
 export const darkWood = new THREE.MeshStandardMaterial({ color: 0x8b5a2e, roughness: 0.75, metalness: 0.05 });
 export const beige = new THREE.MeshStandardMaterial({ color: 0xf5f5dc, metalness: 0.1, roughness: 0.7, side: THREE.DoubleSide, flatShading: true });
+export const wall = new THREE.MeshStandardMaterial({ color: 0x808080, roughness: 0.75, metalness: 0.5 });
+export const metal = new THREE.MeshStandardMaterial({ color: 0x808080, metalness: 1, side: THREE.DoubleSide });
+export const bulb = new THREE.MeshBasicMaterial({ color: 0xFFFF80});
