@@ -36,11 +36,11 @@ export function buildLight()
     // Light
     var spotlight = new THREE.SpotLight(
         0xfffff0, //color: The color of the light (e.g., 0xffffff)
-        100, //intensity: Brightness of the light.
+        3, //intensity: Brightness of the light.
         0, //distance: Maximum range of the light (default is 0 for unlimited).
         Math.PI / 2.5, //angle: Maximum angle of light dispersion, capped at Math.PI / 2 (90 degrees).
         1, //penumbra: Percent of the spotlight cone that is attenuated/softened at the edges, ranging from 0 to 1.
-        2 //decay: The amount the light dims along the distance of the light (typically 2)
+        0.5 //decay: The amount the light dims along the distance of the light (typically 2)
     )
     spotlight.position.set(0, 0.2, 0);
     spotlight.target.position.set(0, -1, 0);

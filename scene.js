@@ -5,6 +5,7 @@ import * as DESK from './desk.js';
 import * as PC from './pc.js';
 import * as ENV from './environment.js';
 import * as LIGHT from './light.js';
+import * as MACHINE from './machineBase.js';
 
 /* ---------------- Scene, Renderer, Camera Init ---------------- */
 const canvas = document.getElementById('c');
@@ -44,6 +45,9 @@ const room = ENV.buildRoom();
 room.position.set(0, 8, 0);
 room.scale.set(8, 4, 8);
 scene.add(room)
+
+const machine = MACHINE.buildMachine();
+scene.add(machine)
 
 const light1 = LIGHT.buildLight();
 light1.position.set(-8, 12, 8);
