@@ -23,5 +23,12 @@ export function buildRoom()
     backMesh.position.set(0, 0, -2);
 
     room.add(leftMesh, rightMesh, frontMesh, backMesh);
+
+    room.traverse((child) => {
+    if (child.isMesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+    }
+    });
     return room;
 }
