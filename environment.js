@@ -71,7 +71,7 @@ export function buildRoom()
     ceilingMesh.position.set(0, 1.99, 0);
     ceilingMesh.rotation.set(Math.PI / 2, 0, 0)
 
-    //room.add(ceilingMesh)
+    room.add(ceilingMesh)
 
     var rim = new THREE.BoxGeometry(1.5, .1, .05);
     var rimMesh = new THREE.Mesh(rim, MATERIALS.metal);
@@ -86,27 +86,6 @@ export function buildRoom()
     var rimMesh4 = rimMesh3.clone();
     rimMesh4.position.set(-0.5, -1.5, -0.5)
     room.add(rimMesh, rimMesh2, rimMesh3, rimMesh4);
-
-    var glass = new THREE.PlaneGeometry(1.5, 2)
-    var glassMesh = new THREE.Mesh(glass, MATERIALS.glass);
-    glassMesh.position.set(-1.25, -1, -0.5)
-    room.add(glassMesh);
-
-    var glassL = new THREE.PlaneGeometry(0.5, 2);
-    var glassLMesh = new THREE.Mesh(glassL, MATERIALS.glass)
-    glassLMesh.position.set(-0.5, -1, -0.75)
-    glassLMesh.rotation.set(0, Math.PI / 2, 0)
-    room.add(glassLMesh);
-
-    var glassRMesh = glassLMesh.clone();
-    glassRMesh.position.set(-0.5, -1, -1.65);
-    room.add(glassRMesh)
-
-    var glassT = new THREE.PlaneGeometry(0.4, 0.5);
-    var glassTMesh = new THREE.Mesh(glassT, MATERIALS.glass);
-    glassTMesh.rotation.set(0, Math.PI / 2, 0)
-    glassTMesh.position.set(-0.5, -0.25, -1.2);
-    room.add(glassTMesh);
 
     var door = new THREE.BoxGeometry(.5, 1.5, 0.025);
     var doorMesh = new THREE.Mesh(door, MATERIALS.wood);
@@ -131,5 +110,27 @@ export function buildRoom()
         child.receiveShadow = true;
     }
     });
+
+    var glass = new THREE.PlaneGeometry(1.5, 2)
+    var glassMesh = new THREE.Mesh(glass, MATERIALS.glass);
+    glassMesh.position.set(-1.25, -1, -0.5)
+    room.add(glassMesh);
+
+    var glassL = new THREE.PlaneGeometry(0.5, 2);
+    var glassLMesh = new THREE.Mesh(glassL, MATERIALS.glass)
+    glassLMesh.position.set(-0.5, -1, -0.75)
+    glassLMesh.rotation.set(0, Math.PI / 2, 0)
+    room.add(glassLMesh);
+
+    var glassRMesh = glassLMesh.clone();
+    glassRMesh.position.set(-0.5, -1, -1.65);
+    room.add(glassRMesh)
+
+    var glassT = new THREE.PlaneGeometry(0.4, 0.5);
+    var glassTMesh = new THREE.Mesh(glassT, MATERIALS.glass);
+    glassTMesh.rotation.set(0, Math.PI / 2, 0)
+    glassTMesh.position.set(-0.5, -0.25, -1.2);
+    room.add(glassTMesh);
+    
     return room;
 }

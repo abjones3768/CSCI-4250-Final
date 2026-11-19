@@ -126,17 +126,18 @@ export function buildMachine()
     spotlight.shadow.bias = -0.0005;
     mesh.add(spotlight, spotlight.target);
 
-    const window = new THREE.PlaneGeometry(4, 6);
-    const windowMesh = new THREE.Mesh(window, MATERIALS.glass);
-    windowMesh.rotation.set(0, 0, Math.PI / 2)
-    windowMesh.position.set(4, 3, 8.5)
-    mesh.add(windowMesh);
-
     mesh.traverse((child) => {
     if (child.isMesh) {
         child.castShadow = true;
         child.receiveShadow = true;
     }
     });
+
+    const window = new THREE.PlaneGeometry(4, 6);
+    const windowMesh = new THREE.Mesh(window, MATERIALS.glass);
+    windowMesh.rotation.set(0, 0, Math.PI / 2)
+    windowMesh.position.set(4, 3, 8.5)
+    mesh.add(windowMesh);
+    
     return mesh; 
 }
