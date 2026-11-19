@@ -92,6 +92,39 @@ export function buildRoom()
     glassMesh.position.set(-1.25, -1, -0.5)
     room.add(glassMesh);
 
+    var glassL = new THREE.PlaneGeometry(0.5, 2);
+    var glassLMesh = new THREE.Mesh(glassL, MATERIALS.glass)
+    glassLMesh.position.set(-0.5, -1, -0.75)
+    glassLMesh.rotation.set(0, Math.PI / 2, 0)
+    room.add(glassLMesh);
+
+    var glassRMesh = glassLMesh.clone();
+    glassRMesh.position.set(-0.5, -1, -1.65);
+    room.add(glassRMesh)
+
+    var glassT = new THREE.PlaneGeometry(0.4, 0.5);
+    var glassTMesh = new THREE.Mesh(glassT, MATERIALS.glass);
+    glassTMesh.rotation.set(0, Math.PI / 2, 0)
+    glassTMesh.position.set(-0.5, -0.25, -1.2);
+    room.add(glassTMesh);
+
+    var door = new THREE.BoxGeometry(.5, 1.5, 0.025);
+    var doorMesh = new THREE.Mesh(door, MATERIALS.wood);
+    doorMesh.rotation.set(0, Math.PI / 2, 0);
+    doorMesh.position.set(-0.5, -1.25, -1.2)
+
+    var knob = new THREE.SphereGeometry(0.025, 32, 16);
+    var knobMesh = new THREE.Mesh(knob, MATERIALS.black);
+    knobMesh.scale.set(0.5, 1, 0.5)
+    knobMesh.position.set(-0.2, 0, .025)
+    doorMesh.add(knobMesh);
+    var knobMesh2 = knobMesh.clone();
+    knobMesh2.position.set(-0.2, 0, -0.025)
+    doorMesh.add(knobMesh2)
+
+    room.add(doorMesh)
+
+
     room.traverse((child) => {
     if (child.isMesh) {
         child.castShadow = true;
