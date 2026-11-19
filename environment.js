@@ -71,7 +71,26 @@ export function buildRoom()
     ceilingMesh.position.set(0, 1.99, 0);
     ceilingMesh.rotation.set(Math.PI / 2, 0, 0)
 
-    room.add(ceilingMesh)
+    //room.add(ceilingMesh)
+
+    var rim = new THREE.BoxGeometry(1.5, .1, .05);
+    var rimMesh = new THREE.Mesh(rim, MATERIALS.metal);
+    rimMesh.position.set(-1.125, 0, -.5)
+    var rimMesh2 = rimMesh.clone();
+    rimMesh2.rotation.set(0, Math.PI / 2, 0)
+    rimMesh2.position.set(-.5, 0, -1.125)
+    var rimMesh3 = rimMesh.clone();
+    rimMesh3.rotation.set(0, 0, Math.PI / 2)
+    rimMesh3.scale.set(1, 0.5, 1)
+    rimMesh3.position.set(-0.5, -0.5, -0.5);
+    var rimMesh4 = rimMesh3.clone();
+    rimMesh4.position.set(-0.5, -1.5, -0.5)
+    room.add(rimMesh, rimMesh2, rimMesh3, rimMesh4);
+
+    var glass = new THREE.PlaneGeometry(1.5, 2)
+    var glassMesh = new THREE.Mesh(glass, MATERIALS.glass);
+    glassMesh.position.set(-1.25, -1, -0.5)
+    room.add(glassMesh);
 
     room.traverse((child) => {
     if (child.isMesh) {
