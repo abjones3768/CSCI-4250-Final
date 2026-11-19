@@ -11,4 +11,5 @@ export const wall = new THREE.MeshStandardMaterial({ color: 0x808080, roughness:
 export const metal = new THREE.MeshStandardMaterial({ color: 0x808080, metalness: 1, side: THREE.DoubleSide });
 export const metalLight = new THREE.MeshStandardMaterial({ color: 0xd0d0d0, metalness: 1, side: THREE.DoubleSide });
 export const bulb = new THREE.MeshBasicMaterial({ color: 0xFFFF80});
-export const glass = new THREE.MeshStandardMaterial({ color: 0xFFFFFF, transparent: true, opacity: 0.4});
+export const glass = new THREE.MeshStandardMaterial({ color: 0xFFFFFF, transparent: true, opacity: 0.4, side: THREE.DoubleSide});
+export const ceiling = new THREE.MeshStandardMaterial({ color: 0x000000, opacity: 0.9, side: THREE.DoubleSide});

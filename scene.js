@@ -23,7 +23,10 @@ controls.target.set(0, 0.55, 0);
 controls.enableDamping = true;
 
 /* ---------------- Lights & Ground ---------------- */
-scene.add(new THREE.HemisphereLight(0xffffff, 0x334455, 0.2));
+var light = new THREE.DirectionalLight(0xffffff, 1);
+light.position.set(20, 20, 20);
+light.target.position.set(0, 0, 0);
+scene.add(light);
 const ground = new THREE.Mesh(
   new THREE.PlaneGeometry(40, 40),
   new THREE.MeshStandardMaterial({ color: 0xd9dde2 })

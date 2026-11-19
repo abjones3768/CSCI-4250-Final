@@ -8,21 +8,70 @@ export function buildRoom()
 {
     const room = new THREE.Group();
     
-    var leftWall = new THREE.BoxGeometry(.125, 4, 4);
-    var leftMesh = new THREE.Mesh(leftWall, MATERIALS.wall)
-    leftMesh.position.set(-2, 0, 0);
+    const shape = new THREE.Shape();
+    shape.moveTo(0, 0);
+    shape.lineTo(4, 0);
+    shape.lineTo(4, 4);
+    shape.lineTo(0, 4);
+    shape.closePath();
 
-    var rightMesh = leftMesh.clone();
-    rightMesh.position.set(2, 0, 0);
+    const hole = new THREE.Path();
+    hole.moveTo(1, 1);
+    hole.lineTo(1, 3);
+    hole.lineTo(3, 3);
+    hole.lineTo(3, 1);
+    hole.closePath();
+    shape.holes.push(hole);
 
-    var frontWall = new THREE.BoxGeometry(4, 4, .125);
-    var frontMesh = new THREE.Mesh(frontWall, MATERIALS.wall)
-    frontMesh.position.set(0, 0, 2);
+    const geometry = new THREE.ExtrudeGeometry(shape, {
+        depth: 0.125,
+        bevelEnabled: false,
+    });
 
-    var backMesh = frontMesh.clone();
-    backMesh.position.set(0, 0, -2);
+    var wallHalf = new THREE.Mesh(geometry, MATERIALS.wall)
+    var window = new THREE.PlaneGeometry(2, 2);
+    var windowMesh = new THREE.Mesh(window, MATERIALS.glass);
+    var bar1Geom = new THREE.BoxGeometry(.125, 2, .125)
+    var bar1 = new THREE.Mesh(bar1Geom, MATERIALS.wall)
+    windowMesh.position.set(2, 2, .0625)
+    bar1.position.set(2, 2, .0625)
+    wallHalf.add(windowMesh)
+    wallHalf.add(bar1)
 
-    room.add(leftMesh, rightMesh, frontMesh, backMesh);
+    // Front wall
+    wallHalf.scale.set(0.5, 1, 1);
+    wallHalf.position.set(-2, -2, 2);
+    var wallHalf2 = wallHalf.clone();
+    wallHalf2.position.set(0, -2, 2);
+    
+    // Back wall
+    var wallHalf3 = wallHalf.clone();
+    wallHalf3.position.set(0, -2, -2);
+    var wallHalf4 = wallHalf.clone();
+    wallHalf4.position.set(-2, -2, -2);
+
+    // Left wall
+    var wallHalf5 = wallHalf.clone();
+    wallHalf5.rotation.set(0, Math.PI / 2, 0)
+    wallHalf5.position.set(-2, -2, 0)
+    var wallHalf6 = wallHalf5.clone();
+    wallHalf6.position.set(-2, -2, 2)
+
+    // Right wall
+    var wallHalf7 = wallHalf.clone();
+    wallHalf7.rotation.set(0, Math.PI / 2, 0)
+    wallHalf7.position.set(2, -2, 0)
+    var wallHalf8 = wallHalf7.clone();
+    wallHalf8.position.set(2, -2, 2)
+
+    room.add(wallHalf, wallHalf2, wallHalf3, wallHalf4, wallHalf5, wallHalf6, wallHalf7, wallHalf8);
+
+    var ceiling = new THREE.PlaneGeometry(4, 4);
+    var ceilingMesh = new THREE.Mesh(ceiling, MATERIALS.ceiling);
+    ceilingMesh.position.set(0, 1.99, 0);
+    ceilingMesh.rotation.set(Math.PI / 2, 0, 0)
+
+    room.add(ceilingMesh)
 
     room.traverse((child) => {
     if (child.isMesh) {
