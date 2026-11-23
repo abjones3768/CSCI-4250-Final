@@ -4,6 +4,8 @@ import * as THREE from 'three';
 import * as HELPERS from './helpers.js';
 import * as MATERIALS from "./materials.js";
 
+import * as PIPES from './pipes.js';
+
 export function buildMachine()
 {   
     const machine = new THREE.Shape();
@@ -139,5 +141,23 @@ export function buildMachine()
     windowMesh.position.set(4, 3, 8.5)
     mesh.add(windowMesh);
     
+    const pipe = PIPES.buildPipe();
+    pipe.position.set(0, 8, 0);
+    mesh.add(pipe);
+
+    const cornerPipe = PIPES.buildCornerPipe();
+    cornerPipe.position.set(0, 11, 0);
+    cornerPipe.rotation.set(Math.PI, 0, 0);
+    mesh.add(cornerPipe);
+
+    const cornerPipe2 = cornerPipe.clone();
+    cornerPipe2.position.set(4, 11, 0);
+    cornerPipe2.rotation.set(Math.PI, 0, Math.PI / 2)
+    mesh.add(cornerPipe2)
+
+    const pipe2 = pipe.clone();
+    pipe2.position.set(4, 8, 0);
+    mesh.add(pipe2);
+
     return mesh; 
 }

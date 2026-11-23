@@ -7,6 +7,7 @@ import * as ENV from './environment.js';
 import * as LIGHT from './light.js';
 import * as MACHINE from './machineBase.js';
 import * as BELTS from './belts.js';
+import * as PIPES from './pipes.js';
 
 /* ---------------- Scene, Renderer, Camera Init ---------------- */
 const canvas = document.getElementById('c');
