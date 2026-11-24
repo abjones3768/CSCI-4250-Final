@@ -7,7 +7,7 @@ import * as ENV from './environment.js';
 import * as LIGHT from './light.js';
 import * as MACHINE from './machineBase.js';
 import * as BELTS from './belts.js';
-import * as PIPES from './pipes.js';
+import * as BIRD from './bird.js';
 
 /* ---------------- Scene, Renderer, Camera Init ---------------- */
 const canvas = document.getElementById('c');
@@ -36,11 +36,51 @@ ground.rotation.x = -Math.PI / 2;
 ground.receiveShadow = true;
 scene.add(ground);
 
+/* ---------------- Animation Control ---------------- */
+var isDrinking = false
+window.addEventListener("keydown", (e) => {
+  if (e.key.toLowerCase() === 'a'){
+    if(isDrinking){
+      isDrinking = false;
+    } else {
+      isDrinking = true;
+    }
+  }
+});
+
+function animate() {
+  requestAnimationFrame(animate);
+  if(isDrinking){
+    BIRD.moveBird.rotation.x = Math.abs(Math.sin(Date.now()*0.003)*(Math.PI/2));
+  }
+  controls.update();
+  
+  renderer.render(scene, camera);
+}
+
+animate();
+
 /* ---------------- Scene Building ---------------- */
 const desk = DESK.buildDesk();
 desk.position.set(-9, 0, -7)
 desk.rotation.set(0, Math.PI, 0)
 scene.add(desk)
+
+const bird = BIRD.createDrinkingBird();
+bird.position.set(-9, 2.1, -7);
+bird.scale.set(0.25, 0.25, 0.25)
+bird.rotation.set(0, Math.PI, 0);
+scene.add(bird)
+
+const saucer = BIRD.createSaucer();
+saucer.position.set(-9, 2.1, -7);
+saucer.scale.set(0.25, 0.25, 0.25)
+scene.add(saucer)
+
+const cup = BIRD.createCup();
+cup.position.set(-9, 2.1, -7.125);
+cup.scale.set(0.25, 0.25, 0.25)
+scene.add(cup);
 
 const pc = PC.buildPC();
 pc.position.set(-8, 2.05, -7); // Position on table mat

@@ -1,98 +1,14 @@
-//I will create a drinking bird 
-
 import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import * as HELPERS from './helpers.js';
+import * as MATERIALS from "./materials.js";
 
-let scene, camera, renderer, controls, drinkBird = new THREE.Group(),moveBird = new THREE.Group(), saucer, cup;
-let isDrinking = false, birdAngle = 0, birdRotation = 0;
-const matRed = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-const matGrey = new THREE.MeshBasicMaterial({ color: 0xd3d3d3 });
-const matYellow  = new THREE.MeshBasicMaterial({ color: 0xffff00 });
-const matWhite = new THREE.MeshBasicMaterial({ color: 0xffffff }); 
-const matBlack = new THREE.MeshBasicMaterial({ color: 0x000000 }); 
-// Initialize scene
-init();
+export var drinkBird = new THREE.Group(),moveBird = new THREE.Group(), saucer, cup;
+var birdAngle = 0, birdRotation = 0;
 
-// ──────────────────────────────────────────────────────────────────────────────
-// SETUP (scene, camera, renderer)
-// ──────────────────────────────────────────────────────────────────────────────
-function init() {
-  // Scene
-  scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x101418);
-
-  // Camera
-  const aspect = window.innerWidth / window.innerHeight;
-  const orthoSize = 4;
-  const height = orthoSize / 2;
-  const width = height * aspect;
-
-  camera = new THREE.OrthographicCamera(
-    -width, width,
-    height, -height,
-    0.1, 100
-  );
-
-  camera.position.set(2, 2, 2);
-  camera.lookAt(0, 0.5, 0);
-
-  // Renderer
-  renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  document.body.appendChild(renderer.domElement);
-
-  // Controls
-  controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true;
-  controls.target.set(0, 0.5, 0);
-
-  // Lighting
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-  scene.add(ambientLight);
-
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-  directionalLight.position.set(5, 10, 5);
-  scene.add(directionalLight);
-
-  // Ground
-  const ground = new THREE.Mesh(
-    new THREE.PlaneGeometry(20, 20),
-    new THREE.MeshStandardMaterial({ color: 0x2a2a2a, roughness: 0.8 })
-  );
-  ground.rotation.x = -Math.PI / 2;
-  ground.receiveShadow = true;
-  scene.add(ground);
-
-  // Grid helper
-  const gridHelper = new THREE.GridHelper(10, 10);
-  scene.add(gridHelper);
-
-
-  // Axes helper
-  const axesHelper = new THREE.AxesHelper(2);
-  scene.add(axesHelper);
-
-  // Create the drinking bird
-  createDrinkingBird();
-  //create the saucer and cup
-  createSaucer();
-  createCup();
-  // Handle resize
-  window.addEventListener('resize', onWindowResize);
-
-  animate();
-}
-
-// ──────────────────────────────────────────────────────────────────────────────
-// CREATE DRINKING BIRD
-// ──────────────────────────────────────────────────────────────────────────────
-function createDrinkingBird() {
+export function createDrinkingBird() {
   const vertices = [];
   const indices = [];
   let vertexIndex = 0;
-  
-  scene.add(drinkBird);
   
   /* Create geometry for mesh object
   const geometry = new THREE.BufferGeometry();
@@ -106,7 +22,7 @@ function createDrinkingBird() {
   const baseDepth = 0.6;
   const base = new THREE.Mesh(
     new THREE.BoxGeometry(baseWidth, baseHeight, baseDepth),
-    matRed
+    MATERIALS.matRed
   );
 
   drinkBird.add(base); //Add the base for the drinking bird
@@ -116,7 +32,7 @@ function createDrinkingBird() {
   const legDepth = 0.3
   const leg = new THREE.Mesh(
     new THREE.BoxGeometry(legWidth, legHeight, legDepth),
-    matRed
+    MATERIALS.matRed
   );
   leg.position.y = 0.75
   leg.position.x = -0.4;
@@ -128,24 +44,24 @@ function createDrinkingBird() {
   //Create the 2 spheres connected by a long cylinder with a perpendicular cylinder piercing
   const poleWidth = 0.05;
   const pole = new THREE.Mesh(new THREE.CylinderGeometry(
-	poleWidth, poleWidth, 1.5, 12), matGrey);
+    poleWidth, poleWidth, 1.5, 12), MATERIALS.matGrey);
   pole.position.y = 1;
   pole.rotation.z = -Math.PI/2;
   drinkBird.add(pole);
 
   const pole2 = new THREE.Mesh(new THREE.CylinderGeometry(
-	poleWidth, poleWidth, 1, 12), matGrey);
+    poleWidth, poleWidth, 1, 12), MATERIALS.matGrey);
   moveBird.add(pole2);
 
   const bottomSphere = new THREE.Mesh(
     new THREE.SphereGeometry( 0.2, 32, 16 ),
-    matGrey
+    MATERIALS.matGrey
   );
   bottomSphere.position.y = -0.60;
   
   const topSphere = new THREE.Mesh(
     new THREE.SphereGeometry( 0.2, 32, 16 ),
-    matRed
+    MATERIALS.matRed
   );
   topSphere.position.y = 0.6;
 
@@ -155,7 +71,7 @@ function createDrinkingBird() {
   //it. Then a cone for a beak and flat circles for eyes
   const beak = new THREE.Mesh(
     new THREE.ConeGeometry( 0.13, 0.25, 10),
-    matYellow
+    MATERIALS.matYellow
   );
 
    beak.rotation.x = Math.PI/2;
@@ -167,7 +83,7 @@ function createDrinkingBird() {
   moveBird.add(eye);
   const eyeBall = new THREE.Mesh(
     new THREE.SphereGeometry( 0.05, 32, 16 ),
-    matWhite
+    MATERIALS.matWhite
    );
 
    eyeBall.position.z = 0.2;
@@ -175,7 +91,7 @@ function createDrinkingBird() {
 
   const pupil = new THREE.Mesh(
     new THREE.SphereGeometry( 0.03, 32, 16 ),
-    matBlack
+    MATERIALS.matBlack
    );
     pupil.position.z = 0.23;
     pupil.position.y = 0.7;
@@ -197,13 +113,11 @@ function createDrinkingBird() {
   drinkBird.castShadow = true;
   drinkBird.receiveShadow = true;
   drinkBird.position.y = 0.05; // Move bird up a little
+  
+  return drinkBird;
 }
 
-//
-// CUP AND SAUCER
-//
-
-function createSaucer(){
+export function createSaucer(){
   const vertices = [
     //PLATE
     -0.5, 0, -0.5, //0. top left plate vertex when facing the front of the drinking bird
@@ -268,12 +182,10 @@ function createSaucer(){
   saucer.receiveShadow = true;
   saucer.position.y = 0.01;
   saucer.position.z = 0.85;
-  scene.add(saucer);
+  return saucer;
 }
 
-//Repurposing the function from bin.js to make an extra cup object outside of the 
-//required mesh extrusion and primitives
-function createCup(){
+export function createCup(){
     // Trash can dimensions
     const radius = 0.3;      // Outer radius (width)
     const height = 0.95;      // Height (taller than width)
@@ -395,7 +307,7 @@ function createCup(){
   
     // Medium gray material
     const material = new THREE.MeshStandardMaterial({
-      color: matWhite, // Medium gray
+      color: MATERIALS.matWhite, // Medium gray
       metalness: 0.1,
       roughness: 0.0,
       side: THREE.DoubleSide
@@ -410,48 +322,5 @@ function createCup(){
     cup.position.y = 0.025; // Move trash can up a little
     cup.position.z = 0.65;
     
-    scene.add(cup);
+    return cup;
 }
-
-// ──────────────────────────────────────────────────────────────────────────────
-// RENDER LOOP
-// ──────────────────────────────────────────────────────────────────────────────
-function animate() {
-  requestAnimationFrame(animate);
-  if(isDrinking){
-    moveBird.rotation.x = Math.abs(Math.sin(Date.now()*0.003)*(Math.PI/2));
-  }
-  controls.update();
-  
-  renderer.render(scene, camera);
-}
-
-// ──────────────────────────────────────────────────────────────────────────────
-// WINDOW RESIZE HANDLER
-// ──────────────────────────────────────────────────────────────────────────────
-function onWindowResize() {
-  const aspect = window.innerWidth / window.innerHeight;
-
-  const height = 4 / 2;
-  const width = height * aspect;
-
-  camera.left = -width;
-  camera.right = width;
-  camera.top = height;
-  camera.bottom = -height;
-
-  camera.updateProjectionMatrix();
-
-  renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
-window.addEventListener("keydown", (e) => {
-  if (e.key.toLowerCase() === 'a'){
-    if(isDrinking){
-      isDrinking = false;
-    } else {
-      isDrinking = true;
-    }
-    
-  }
-});

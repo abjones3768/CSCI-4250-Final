@@ -13,3 +13,9 @@ export const metalLight = new THREE.MeshStandardMaterial({ color: 0xd0d0d0, meta
 export const bulb = new THREE.MeshBasicMaterial({ color: 0xFFFF80});
 export const glass = new THREE.MeshStandardMaterial({ color: 0xFFFFFF, transparent: true, opacity: 0.4, side: THREE.DoubleSide});
 export const ceiling = new THREE.MeshStandardMaterial({ color: 0x000000, transparent: true, opacity: 0.9, side: THREE.DoubleSide});
+
+export const matRed = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+export const matGrey = new THREE.MeshBasicMaterial({ color: 0xd3d3d3 });
+export const matYellow  = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+export const matWhite = new THREE.MeshBasicMaterial({ color: 0xffffff }); 
+export const matBlack = new THREE.MeshBasicMaterial({ color: 0x000000 }); 
